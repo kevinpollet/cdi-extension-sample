@@ -13,8 +13,11 @@
       <version.arquillian>1.0.0.CR1</version.arquillian>
       <version.cdi>1.0-SP4</version.cdi>
       <version.jboss.container>7.0.0.Final</version.jboss.container>
+      <version.jboss.spec>2.0.0.Final</version.jboss.spec>
       <version.junit>4.8.2</version.junit>
       <version.seam.solder>3.0.0.Final</version.seam.solder>
+      <version.slf4j>1.5.10</version.slf4j>
+      <version.weld>1.1.1.Final</version.weld>
    </properties>
 
    <dependencies>
@@ -58,9 +61,45 @@
    </repositories>
    <profiles>
       <profile>
-         <id>as7-container</id>
+         <id>weld-ee-embedded</id>
          <activation>
             <activeByDefault>true</activeByDefault>
+         </activation>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+               <version>${version.arquillian}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.weld</groupId>
+               <artifactId>weld-core</artifactId>
+               <version>${version.weld}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.spec</groupId>
+               <artifactId>jboss-javaee-6.0</artifactId>
+               <version>${version.jboss.spec}</version>
+               <type>pom</type>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-jdk14</artifactId>
+               <version>${version.slf4j}</version>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+      </profile>
+      <profile>
+         <id>as7-managed</id>
+         <activation>
+            <activeByDefault>false</activeByDefault>
+            <property>
+               <name>as7-managed</name>
+            </property>
          </activation>
          <dependencies>
             <dependency>
