@@ -15,7 +15,6 @@
  */
 package com.github.kevinpollet.sample.cdi.interceptor;
 
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 /**
@@ -23,7 +22,6 @@ import javax.interceptor.InvocationContext;
  */
 public class BarInterceptor {
 
-   @AroundInvoke
    public Object intercept(InvocationContext context) throws Exception {
       return "Bar interceptor called";
    }
