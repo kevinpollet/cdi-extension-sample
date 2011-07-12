@@ -38,8 +38,9 @@ public class FooInterceptorTest {
    @Deployment
    public static Archive<?> deployment() {
       return Deployments.baseDeployment()
-            .addPackage(FooInterceptorTest.class.getPackage())
-            .addAsWebInfResource(FooInterceptorTest.class.getResource("beans.xml"), "beans.xml");
+            .addClass(FooInterceptorTest.class)
+            .addClass(GreetingService.class)
+            .addAsManifestResource(FooInterceptorTest.class.getResource("beans.xml"), "beans.xml");
    }
 
    @Inject

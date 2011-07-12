@@ -38,8 +38,9 @@ public class BarInterceptorTest {
    @Deployment
    public static Archive<?> deployment() {
       return Deployments.baseDeployment()
-            .addPackage(BarInterceptorTest.class.getPackage())
-            .addAsWebInfResource(BarInterceptorTest.class.getResource("beans.xml"), "beans.xml");
+            .addClass(BarInterceptorTest.class)
+            .addClass(GreetingService.class)
+            .addAsManifestResource(BarInterceptorTest.class.getResource("beans.xml"), "beans.xml");
    }
 
    @Inject
@@ -55,7 +56,7 @@ public class BarInterceptorTest {
 
       Assert.assertEquals(1, beanManager.resolveInterceptors(InterceptionType.AROUND_INVOKE, new AnnotationLiteral<Bar>() {}).size());
       // see WELD-816 (https://issues.jboss.org/browse/WELD-816)
-      // Assert.assertEquals("Bar interceptor called", hello);
+      Assert.assertEquals("Bar interceptor called", hello);
       Assert.assertEquals("Bye Kevin", bye);
    }
 }
