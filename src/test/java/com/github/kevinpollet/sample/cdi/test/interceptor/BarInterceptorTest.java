@@ -50,12 +50,12 @@ public class BarInterceptorTest {
    public BeanManager beanManager;
 
    @Test
+   //This test doesn't work with WELD, see https://issues.jboss.org/browse/WELD-816
    public void testBarInterceptor() {
       String hello = greetingService.hello("Kevin");
       String bye = greetingService.bye("Kevin");
 
       Assert.assertEquals(1, beanManager.resolveInterceptors(InterceptionType.AROUND_INVOKE, new AnnotationLiteral<Bar>() {}).size());
-      // see WELD-816 (https://issues.jboss.org/browse/WELD-816)
       Assert.assertEquals("Bar interceptor called", hello);
       Assert.assertEquals("Bye Kevin", bye);
    }
