@@ -12,7 +12,7 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <version.arquillian>1.0.0.CR1</version.arquillian>
       <version.cdi>1.0-SP4</version.cdi>
-      <version.jboss.container>7.0.0.CR1</version.jboss.container>
+      <version.jboss.container>7.0.0.Final</version.jboss.container>
       <version.junit>4.8.2</version.junit>
       <version.seam.solder>3.0.0.Final</version.seam.solder>
    </properties>
@@ -50,6 +50,12 @@
          <scope>test</scope>
       </dependency>
    </dependencies>
+   <repositories>
+      <repository>
+         <id>JBOSS</id>
+         <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+      </repository>
+   </repositories>
    <profiles>
       <profile>
          <id>as7-container</id>
