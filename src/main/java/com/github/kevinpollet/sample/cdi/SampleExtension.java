@@ -15,16 +15,20 @@
  */
 package com.github.kevinpollet.sample.cdi;
 
+import com.github.kevinpollet.sample.cdi.interceptor.Bar;
 import com.github.kevinpollet.sample.cdi.interceptor.Foo;
 import com.github.kevinpollet.sample.cdi.interceptor.FooInterceptor;
 import org.jboss.seam.solder.reflection.annotated.AnnotatedTypeBuilder;
 
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.enterprise.util.AnnotationLiteral;
+import javax.interceptor.Interceptor;
 
 /**
  * @author Kevin Pollet
@@ -33,14 +37,20 @@ public class SampleExtension implements Extension {
 
    void registerInterceptorBinding(@Observes BeforeBeanDiscovery event) {
       event.addInterceptorBinding(Foo.class);
+      event.addInterceptorBinding(Bar.class);
    }
 
    void processFooInterceptorAnnotatedType(@Observes ProcessAnnotatedType<FooInterceptor> event) {
       AnnotatedType<FooInterceptor> annotatedType = new AnnotatedTypeBuilder<FooInterceptor>()
             .readFromType(event.getAnnotatedType())
+            .addToClass(new AnnotationLiteral<Interceptor>() {})
             .addToClass(new AnnotationLiteral<Foo>() {})
             .create();
 
       event.setAnnotatedType(annotatedType);
+   }
+
+   void registerBarInterceptor(@Observes AfterBeanDiscovery event, BeanManager beanManager) {
+      event.addBean(new BarInterceptorBean(beanManager));
    }
 }

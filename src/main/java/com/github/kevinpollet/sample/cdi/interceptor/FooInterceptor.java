@@ -16,13 +16,11 @@
 package com.github.kevinpollet.sample.cdi.interceptor;
 
 import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 /**
  * @author Kevin Pollet
  */
-@Interceptor
 public class FooInterceptor {
 
    @AroundInvoke

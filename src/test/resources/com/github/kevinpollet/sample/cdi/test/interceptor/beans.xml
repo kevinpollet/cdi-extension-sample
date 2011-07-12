@@ -20,5 +20,6 @@
 
   <interceptors>
      <class>com.github.kevinpollet.sample.cdi.interceptor.FooInterceptor</class>
+     <class>com.github.kevinpollet.sample.cdi.interceptor.BarInterceptor</class>
   </interceptors>
 </beans>

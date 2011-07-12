@@ -13,27 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kevinpollet.sample.cdi.test.interceptor;
+package com.github.kevinpollet.sample.cdi.interceptor;
 
-import com.github.kevinpollet.sample.cdi.interceptor.Bar;
-import com.github.kevinpollet.sample.cdi.interceptor.Foo;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
 
 /**
  * @author Kevin Pollet
  */
-public class GreetingService {
+public class BarInterceptor {
 
-   @Foo
-   public String hi(String user) {
-      return "Hi " + user;
-   }
-
-   @Bar
-   public String hello(String user) {
-      return "Hello " + user;
-   }
-
-   public String bye(String user) {
-      return "Bye " + user;
+   @AroundInvoke
+   public Object intercept(InvocationContext context) throws Exception {
+      return "Bar interceptor called";
    }
 }
