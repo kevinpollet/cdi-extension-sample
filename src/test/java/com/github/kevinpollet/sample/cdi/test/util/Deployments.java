@@ -17,32 +17,20 @@ package com.github.kevinpollet.sample.cdi.test.util;
 
 import com.github.kevinpollet.sample.cdi.SampleExtension;
 import com.github.kevinpollet.sample.cdi.interceptor.Foo;
-import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 
 /**
  * @author Kevin Pollet
  */
 public class Deployments {
 
-   public static WebArchive baseDeployment() {
-      return ShrinkWrap.create(WebArchive.class)
-            .addAsLibrary(
-                  ShrinkWrap.create(JavaArchive.class)
-                        .addPackage(SampleExtension.class.getPackage())
-                        .addPackage(Foo.class.getPackage())
-                        .addAsManifestResource(Foo.class.getResource("/META-INF/services/javax.enterprise.inject.spi.Extension"), "/services/javax.enterprise.inject.spi.Extension")
-                        .addAsManifestResource(Foo.class.getResource("/META-INF/beans.xml"), "beans.xml")
-            )
-            .addAsLibraries(
-                  DependencyResolvers.use(MavenDependencyResolver.class)
-                        .loadReposFromPom("pom.xml")
-                        .artifact("org.jboss.seam.solder:seam-solder")
-                        .resolveAs(GenericArchive.class)
-            );
+   // ARQ-403, Open Web Beans embedded container doesn't support WebArchive
+   public static JavaArchive baseDeployment() {
+      return ShrinkWrap.create(JavaArchive.class)
+            .addPackage(SampleExtension.class.getPackage())
+            .addPackage(Foo.class.getPackage())
+            .addAsManifestResource(Foo.class.getResource("/META-INF/services/javax.enterprise.inject.spi.Extension"), "/services/javax.enterprise.inject.spi.Extension")
+            .addPackages(true, "org.jboss.seam.solder");
    }
 }

@@ -19,7 +19,7 @@ import com.github.kevinpollet.sample.cdi.interceptor.Bar;
 import com.github.kevinpollet.sample.cdi.test.util.Deployments;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,8 +35,9 @@ import javax.inject.Inject;
 @RunWith(Arquillian.class)
 public class BarInterceptorTest {
 
+   // ARQ-403
    @Deployment
-   public static Archive<?> deployment() {
+   public static JavaArchive deployment() {
       return Deployments.baseDeployment()
             .addClass(BarInterceptorTest.class)
             .addClass(GreetingService.class)
