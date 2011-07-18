@@ -13,32 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.kevinpollet.sample.cdi.test.interceptor;
+package com.github.kevinpollet.sample.cdi.interceptor;
 
-import com.github.kevinpollet.sample.cdi.interceptor.Bar;
-import com.github.kevinpollet.sample.cdi.interceptor.Foo;
+import javax.enterprise.util.AnnotationLiteral;
 
 /**
  * @author Kevin Pollet
  */
-public class GreetingService {
-
-   @Foo
-   public String hi(String user) {
-      return "Hi " + user;
-   }
-
-   @Foo(false)
-   public String hey(String user) {
-      return "Hey " + user;
-   }
-
-   @Bar
-   public String hello(String user) {
-      return "Hello " + user;
-   }
-
-   public String bye(String user) {
-      return "Bye " + user;
+public class FooLiteral extends AnnotationLiteral<Foo> implements Foo{
+   public boolean value() {
+      return false;
    }
 }

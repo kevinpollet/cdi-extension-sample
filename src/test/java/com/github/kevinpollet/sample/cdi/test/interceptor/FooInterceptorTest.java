@@ -16,6 +16,7 @@
 package com.github.kevinpollet.sample.cdi.test.interceptor;
 
 import com.github.kevinpollet.sample.cdi.interceptor.Foo;
+import com.github.kevinpollet.sample.cdi.interceptor.FooLiteral;
 import com.github.kevinpollet.sample.cdi.test.util.Deployments;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -52,10 +53,12 @@ public class FooInterceptorTest {
    @Test
    public void testFooInterceptor() {
       String hi = greetingService.hi("Kevin");
+      String hey = greetingService.hey("Kevin");
       String bye = greetingService.bye("Kevin");
 
-      Assert.assertEquals(1, beanManager.resolveInterceptors(InterceptionType.AROUND_INVOKE, new AnnotationLiteral<Foo>() {}).size());
+      Assert.assertEquals(1, beanManager.resolveInterceptors(InterceptionType.AROUND_INVOKE, new FooLiteral()).size());
       Assert.assertEquals("Foo interceptor called", hi);
+      Assert.assertEquals("Hey Kevin", hey);
       Assert.assertEquals("Bye Kevin", bye);
    }
 }

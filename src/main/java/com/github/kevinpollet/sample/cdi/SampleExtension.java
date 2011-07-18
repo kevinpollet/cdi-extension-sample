@@ -18,6 +18,7 @@ package com.github.kevinpollet.sample.cdi;
 import com.github.kevinpollet.sample.cdi.interceptor.Bar;
 import com.github.kevinpollet.sample.cdi.interceptor.Foo;
 import com.github.kevinpollet.sample.cdi.interceptor.FooInterceptor;
+import com.github.kevinpollet.sample.cdi.interceptor.FooLiteral;
 import org.jboss.seam.solder.reflection.annotated.AnnotatedTypeBuilder;
 
 import javax.enterprise.event.Observes;
@@ -44,7 +45,7 @@ public class SampleExtension implements Extension {
       AnnotatedType<FooInterceptor> annotatedType = new AnnotatedTypeBuilder<FooInterceptor>()
             .readFromType(event.getAnnotatedType())
             .addToClass(new AnnotationLiteral<Interceptor>() {})
-            .addToClass(new AnnotationLiteral<Foo>() {})
+            .addToClass(new FooLiteral())
             .create();
 
       event.setAnnotatedType(annotatedType);

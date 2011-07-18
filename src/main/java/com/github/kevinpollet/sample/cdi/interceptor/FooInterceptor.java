@@ -25,6 +25,11 @@ public class FooInterceptor {
 
    @AroundInvoke
    public Object intercept(InvocationContext context) throws Exception {
-      return "Foo interceptor called";
+      Foo fooAnnotation = context.getMethod().getAnnotation(Foo.class);
+
+      if (fooAnnotation.value() == true) {
+         return "Foo interceptor called";
+      }
+      return context.proceed();
    }
 }
